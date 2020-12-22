@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery.js"></script>
+    <style>
+        #wrap {
+            border:1px solid black;
+            width:350px;
+            height:350px;
+            left:300px;
+            top:300px;
+            position: absolute;
+        }
+        #content {
+            width:400px;
+            height:400px;
+            border:1px solid black;
+            overflow: hidden;
+            position: absolute;
+            left:900px;
+            top:200px;
+            display: none;
+        }
+        #wrap1 {
+            width:100px ;
+            height:100px;
+            position: absolute;
+            opacity: 0.4;
+            left: 0;
+            top:0;
+            cursor: move;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <img src="img/001.jpg" alt="">
+    <div id="wrap1"></div>
+</div>
+<div id="content">
+    <img src="img/0001.jpg" alt="" style="position: absolute;left:0;top: 0;">
+</div>
+<script>
+    $(function () {
+        $('#wrap').mousemove(function (ev) {
+            var left =ev.pageX-$(this).offset().left;
+            var top =ev.pageY-$(this).offset().top;
+            if(left<50) {
+                left = 50;
+            }
+            if(left>300) {
+                left = 300;
+            }
+            if(top<50) {
+                top = 50;
+            }
+            if(top>300) {
+                top = 300;
+            }
+            $('#wrap1').css({left:left-50,top:top-50,backgroundColor:'yellow'});
+            $('#content').css('display','block');
+            $('img').eq(1).css('left',0-(400/300*left));
+            $('img').eq(1).css('top',0-(400/300*top));
+        });
+        $('#wrap').mouseout(function () {
+            $('#wrap1').css('backgroundColor','');
+            $('#content').css('display','none');
+        })
+    })
+</script>
+</body>
+</html>
